@@ -1,0 +1,318 @@
+/* ==========================================================================
+   epochalypse.css
+
+   Page-specific layer on top of proper-css for the Epochalypse Project.
+   proper-css supplies all tokens, type, layout, and components; this file
+   only adjusts where the project's content needs it. Loaded AFTER proper.css.
+   ========================================================================== */
+
+/* proper-css styles the 2nd column of every table as a prominent narrow
+   value cell (td:nth-child(2): larger font, 4rem wide). That suits a
+   label/value table, but the FAQ has multi-column content tables (Date /
+   Event / Status; Term / Definition) where it would crush column two.
+   Re-normalise content tables; the higher specificity wins. */
+.section-card table td:nth-child(2) {
+  font-size: inherit;
+  width: auto;
+}
+
+/* Tables: keep them at body size and let wide ones scroll on narrow screens
+   instead of overflowing the card. */
+.section-card table {
+  font-size: var(--fs-base);
+}
+
+.table-wrap {
+  overflow-x: auto;
+  margin: var(--sp-2) 0 var(--sp-3);
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-wrap > table {
+  margin: 0;
+}
+
+/* Inline code — proper-css styles <pre> but not inline <code>. Give it an
+   intentional monospace treatment that sits quietly in body text. */
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+               "Liberation Mono", "Courier New", monospace;
+  font-size: 0.9em;
+  background: rgba(0, 0, 0, 0.04);
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+}
+
+/* The hero call-to-action row on the landing page. */
+.cta-row {
+  margin-top: var(--sp-3);
+}
+
+/* Quiet aside panels — the Contents block and the "Explore more" block share
+   one restrained treatment (adapted from the Friend Protocol's .fp-toc /
+   .fp-companions, recoloured to azure): a faint wash, a hairline left rule, a
+   small uppercase label, and dotted-underline links. */
+.toc,
+.related {
+  margin: var(--sp-5) 0;
+  padding: var(--sp-2) var(--sp-3);
+  border-left: 2px solid rgba(28, 114, 173, 0.20);
+  border-radius: 0 var(--pt-radius) var(--pt-radius) 0;
+  background: rgba(28, 114, 173, 0.035);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.toc-heading,
+.related-heading {
+  margin: 0 0 var(--sp-1);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.48);
+}
+
+/* Contents list: drop the bullets, dotted underline on hover. */
+.toc .list {
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+  font-size: var(--fs-sm);
+  line-height: 1.6;
+}
+.toc .list li { margin: 0; padding: 2px 0; }
+.toc .list a {
+  color: rgba(0, 0, 0, 0.72);
+  text-decoration: none;
+  border-bottom: 1px dotted transparent;
+}
+.toc .list a:hover {
+  color: #1C72AD;
+  border-bottom-color: rgba(28, 114, 173, 0.45);
+}
+
+/* ==========================================================================
+   Epochalypse logo + cyan accent
+   --------------------------------------------------------------------------
+   Layered over proper-css to coordinate the site with the punk-sloth logo.
+   proper.css is untouched; remove this block to revert to the green system.
+
+   The logo PNG is an opaque black tile with the cyan sloth, so we round it
+   into a deliberate logo tile rather than try to float it on the cream paper
+   (the face's eyes/mask/mouth are the black showing through — a transparent
+   knockout would turn those cream and break the expression).
+
+   Two cyan tones, both from the logo's family:
+   --epoch-cyan  bright accent, used where contrast comes from the element
+                 (the card spine), not from text on cream.
+   The interactive azure repoints proper-css's --pt-green so links, buttons,
+   nav-hover and focus shift together in one move; it is deliberately darker
+   than the logo cyan so body links stay legible on the cream background
+   (a contrast on par with the green it replaces).
+   ========================================================================== */
+
+:root {
+  --epoch-cyan: #72B8EE;   /* bright — the logo's cheerful note */
+  --pt-green:   #1C72AD;   /* repointed accent: legible azure for text/fills */
+}
+
+/* Logo tile */
+.site-logo {
+  border-radius: 14px;
+  background: #000;                       /* harmless if the PNG is opaque */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
+}
+
+@media (max-width: 720px) {
+  .site-logo { border-radius: 12px; }
+}
+
+/* Signature: each content card carries a bright-cyan spine echoing the logo */
+.section-card {
+  border-left-color: var(--epoch-cyan);
+}
+
+/* proper-css hard-codes a green tint in a couple of spots that don't read
+   from the variable; re-tint those to keep the palette coherent. */
+.site-nav a:hover {
+  background: rgba(28, 114, 173, 0.10);
+}
+
+.footer-links a {
+  color: #1C72AD;
+}
+
+/* ==========================================================================
+   Modular site: active nav state + cross-link "Explore more" block
+   ========================================================================== */
+
+.site-nav a[aria-current="page"] {
+  background: rgba(28, 114, 173, 0.12);
+  color: #1C72AD;
+  font-weight: 600;
+}
+
+/* .related / .related-heading are styled by the unified aside-panel rule above. */
+.related-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.related-list li {
+  margin-bottom: var(--sp-1);
+  line-height: 1.5;
+}
+
+.related-list a {
+  font-weight: 600;
+}
+
+.related-list .blurb {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+/* ==========================================================================
+   Assessment levels — epistemic badges + legend
+   Observed (empirical) · Reported (field) · Suspected (theoretical) ·
+   Unexamined (evidence gap). Visual weight tracks evidentiary strength:
+   filled -> tinted -> outlined -> dashed.
+   ========================================================================== */
+
+.lvl {
+  display: inline-block;
+  font-size: var(--fs-xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 1px 8px;
+  margin-right: 2px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  vertical-align: 0.08em;
+  white-space: nowrap;
+  line-height: 1.5;
+}
+
+.lvl-observed   { background: #1C72AD; color: #fff; border-color: #1C72AD; }
+.lvl-reported   { background: rgba(28, 114, 173, 0.10); color: #1C72AD; border-color: rgba(28, 114, 173, 0.45); }
+.lvl-suspected  { color: #8A5A3E; border-color: rgba(138, 90, 62, 0.55); }
+.lvl-unexamined { color: rgba(0, 0, 0, 0.55); border: 1px dashed rgba(0, 0, 0, 0.32); }
+
+.lvl-legend {
+  margin: var(--sp-2) 0 var(--sp-3);
+  padding: var(--sp-2);
+  border: 1px solid rgba(0, 0, 0, 0.10);
+  border-radius: var(--pt-radius);
+  background: rgba(0, 0, 0, 0.015);
+  font-size: var(--fs-sm);
+  color: rgba(0, 0, 0, 0.66);
+  line-height: 1.9;
+}
+
+.lvl-legend .lvl-legend-label {
+  display: block;
+  font-size: var(--fs-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.5);
+  margin-bottom: 4px;
+}
+
+/* ==========================================================================
+   Bookmarkable anchors — grabbable "#" on headings, glossary terms, and
+   references. Hover-reveal on pointer devices; faintly persistent on touch.
+   ========================================================================== */
+
+.headerlink,
+.anchor {
+  margin-left: 0.3em;
+  font-size: 0.8em;
+  font-weight: normal;
+  color: #1C72AD;
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity 120ms ease;
+}
+
+h2:hover > .headerlink,
+h3:hover > .headerlink,
+h4:hover > .headerlink,
+.gloss-term:hover > .anchor,
+.section-card li:hover > .anchor,
+.headerlink:focus,
+.anchor:focus {
+  opacity: 0.6;
+}
+
+.headerlink:hover,
+.anchor:hover {
+  opacity: 1;
+  text-decoration: none;
+}
+
+/* The page title doesn't need a permalink to itself. */
+h1 > .headerlink {
+  display: none;
+}
+
+/* Glossary terms read as a definition list even though they're a table. */
+.gloss-term {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* No hover on touch devices — keep the affordance discoverable. */
+@media (hover: none) {
+  .headerlink,
+  .anchor {
+    opacity: 0.4;
+  }
+}
+
+/* Land anchored targets clear of the sticky header when jumped to. */
+:target {
+  scroll-margin-top: var(--sp-5);
+}
+
+/* ==========================================================================
+   Typographic refinements (adapted from the Friend Protocol page).
+   Brought over: a fluid Doves title, one heading family, softer wrapping,
+   and a faint cyan cast on each card. Left behind as essay-only: the drop
+   cap, the ✢ fleuron divider, the centred envoi, and the protocol callout.
+   ========================================================================== */
+
+/* Responsive display title — Doves (already), now fluid and balanced. */
+.section-card h1 {
+  font-size: clamp(2.1rem, 4.5vw, 3.1rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+/* One heading family: extend Doves to h3 so the question headings match
+   across focused (h2) and multi-section (h3) pages. */
+.section-card h3 {
+  font-family: "Doves Headline", Georgia, serif;
+  letter-spacing: -0.005em;
+}
+.section-card h2,
+.section-card h3 {
+  text-wrap: balance;
+}
+
+/* Body: fewer orphans and ragged last lines. */
+.section-card p {
+  text-wrap: pretty;
+}
+
+/* One atmospheric touch: a whisper of cyan at the head of each card
+   (recoloured and dialed down from the Friend Protocol card). */
+.section-card {
+  background:
+    radial-gradient(circle at top center, rgba(114, 184, 238, 0.05), transparent 55%),
+    #fff;
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.05),
+    0 1px 0 rgba(255, 255, 255, 0.9) inset;
+}

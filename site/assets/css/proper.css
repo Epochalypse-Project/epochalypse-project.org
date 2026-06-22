@@ -1,0 +1,770 @@
+/* ==========================================================================
+   proper-css
+
+   The CSS foundation Proper Tools uses on its own properties.
+   Tokens, typography, layout primitives, foundational components.
+
+   "proper" here means "what Proper Tools uses," not "the proper way to do
+   CSS." One opinion among many. MIT licensed. No build step. No JS.
+
+   Spacing system: Fibonacci sequence (base unit 8px)
+   Type scale: Golden ratio (φ = 1.618)
+
+   "Wind blowing between words."
+
+   --sp-1:   8px   tight — inline gaps, micro spacing
+   --sp-2:  16px   close — related elements
+   --sp-3:  24px   near  — paragraph spacing
+   --sp-5:  40px   mid   — section breathing room
+   --sp-8:  64px   open  — card separation
+   --sp-13: 104px  wide  — page-level margins
+   --sp-21: 168px  vast  — hero space
+
+   https://github.com/propertools/proper-css
+   ========================================================================== */
+
+
+/* ---------- Fonts ---------- */
+
+/* Doves Headline.
+   Font file NOT distributed with proper-css due to licensing — see
+   README.md for how to bring your own. The fallback chain (Georgia,
+   serif) handles the missing-font case via font-display: swap.
+
+   When sideloading proper-css across origins, ensure your hosting sets
+   `Access-Control-Allow-Origin` for font assets. Safari is strictest
+   about cross-origin font requests. */
+
+@font-face {
+  font-family: "Doves Headline";
+  src: url("/assets/fonts/doves-headline.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+h1, h2, .site-title {
+  font-family: "Doves Headline", Georgia, serif;
+  letter-spacing: 0.01em;
+}
+
+
+/* ---------- Variables ---------- */
+
+:root {
+
+  /* Brand */
+  --pt-green:       #4C7D4A;
+  --pt-ink:         #111111;
+  --pt-paper:       #F4F1EA;
+  --pt-accent:      #8A5A3E;
+  --pt-max-width:   740px;
+  --pt-radius:      4px;
+  --pt-shadow-soft: 0 8px 20px rgba(0,0,0,0.06);
+
+  /* Fibonacci spacing scale — resolved values (base: 8px)
+     No calc() chains: Safari does not appreciate nested var() in calc(). */
+  --sp-1:    8px;
+  --sp-2:   16px;
+  --sp-3:   24px;
+  --sp-5:   40px;
+  --sp-8:   64px;
+  --sp-13: 104px;
+  --sp-21: 168px;
+
+  /* Golden ratio type scale (base: 1rem = 16px, φ = 1.618)
+     xs:   ~9.9px   fine print, captions
+     sm:  ~12.2px   small labels, footnotes
+     base:  16px    body copy
+     md:    20px    approx φ^0.5, lede, h3
+     lg:  ~25.9px   h2
+     xl:  ~41.9px   h1 hero                */
+  --fs-xs:   0.618rem;
+  --fs-sm:   0.764rem;
+  --fs-base: 1rem;
+  --fs-md:   1.25rem;
+  --fs-lg:   1.618rem;
+  --fs-xl:   2.618rem;
+}
+
+
+/* ---------- Global ---------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+               "Source Serif 4", serif;
+  font-size: var(--fs-base);
+  color: var(--pt-ink);
+  background: var(--pt-paper);
+  line-height: 1.618;           /* φ as line-height */
+  text-rendering: optimizeLegibility;
+  font-kerning: normal;
+}
+
+a {
+  color: var(--pt-green);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+
+/* ---------- Layout ---------- */
+
+.page {
+  max-width: var(--pt-max-width);
+  margin: 0 auto;
+  padding: var(--sp-3) var(--sp-3) var(--sp-8);
+  /* --sp-3 sides (24px) ensures cards never touch viewport edges */
+}
+
+
+/* ---------- Header ---------- */
+
+.site-header {
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(8px);
+}
+
+.site-header-inner {
+  max-width: var(--pt-max-width);
+  margin: 0 auto;
+  padding: var(--sp-1) var(--sp-3);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--sp-2) var(--sp-3);
+}
+
+.site-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-1);
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.site-logo-link {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.site-logo {
+  height: 52px;
+  width: auto;
+  display: block;
+}
+
+.site-title-link {
+  display: block;
+  min-width: 0;
+  color: inherit;
+  text-decoration: none;
+}
+
+.site-title-link:hover,
+.site-title-link:focus {
+  text-decoration: none;
+}
+
+.site-title-link:hover .site-title,
+.site-title-link:focus .site-title {
+  text-decoration: underline;
+  text-underline-offset: 0.08em;
+}
+
+.site-title-block {
+  min-width: 0;
+}
+
+.site-title {
+  font-family: "Doves Headline", Georgia, serif;
+  font-weight: normal;
+  text-transform: none;
+  letter-spacing: -0.015em;
+  font-size: 1.15rem;
+  line-height: 1.02;
+  color: var(--pt-ink);
+}
+
+.site-tagline {
+  font-size: var(--fs-sm);
+  color: rgba(0,0,0,0.62);
+  line-height: 1.15;
+  margin-top: 2px;
+}
+
+.site-subtitle {
+  margin-top: 3px;
+  font-size: var(--fs-xs);
+  line-height: 1.28;
+  color: rgba(0,0,0,0.56);
+  max-width: 38ch;
+}
+
+.site-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--sp-1);
+}
+
+.site-nav-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--sp-1);
+}
+
+.site-nav a {
+  padding: 2px var(--sp-1);
+  border-radius: 999px;
+  white-space: nowrap;
+  font-size: var(--fs-sm);
+}
+
+.site-nav a:hover {
+  background: rgba(76,125,74,0.08);
+  text-decoration: none;
+}
+
+.nav-divider {
+  color: rgba(0,0,0,0.45);
+  padding: 0 2px;
+  user-select: none;
+}
+
+
+/* ---------- Mobile header/nav ---------- */
+
+@media (max-width: 720px) {
+  .site-header-inner {
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .site-brand {
+    flex: 1 1 100%;
+  }
+
+  .site-logo {
+    height: 44px;
+  }
+
+  .site-title {
+    font-size: 1.02rem;
+  }
+
+  .site-tagline {
+    font-size: 0.8rem;
+  }
+
+  .site-subtitle {
+    font-size: 0.7rem;
+    max-width: none;
+  }
+
+  .site-nav {
+    flex: 0 0 100%;
+    width: 100%;
+    margin-top: var(--sp-1);
+    justify-content: flex-start;
+  }
+
+  .nav-divider {
+    display: none;
+  }
+}
+
+
+/* ---------- Content Cards ---------- */
+
+.section-card {
+  background: #fff;
+  border-radius: var(--pt-radius);
+  border-left: 4px solid rgba(0,0,0,0.08);
+  box-shadow: var(--pt-shadow-soft);
+  padding: var(--sp-3) var(--sp-3) var(--sp-5) var(--sp-5);
+  /* Left heavier than right — golden asymmetry, pulls eye inward */
+  margin-top: var(--sp-3);
+}
+
+.section-card h1 {
+  font-size: var(--fs-xl);
+  margin-top: var(--sp-2);
+  margin-bottom: var(--sp-2);
+  line-height: 1.1;
+  color: var(--pt-ink);
+}
+
+.section-card h2 {
+  font-size: var(--fs-lg);
+  margin-top: var(--sp-5);    /* 40px — breathe before a new section */
+  margin-bottom: var(--sp-1); /* 8px — tight below, close to content */
+  color: var(--pt-ink);
+}
+
+.section-card h3 {
+  font-size: var(--fs-md);
+  margin-top: var(--sp-3);    /* 24px */
+  margin-bottom: var(--sp-1);
+  color: var(--pt-ink);
+}
+
+/* First heading in a card needs no top margin */
+.section-card > h1:first-child,
+.section-card > h2:first-child,
+.section-card > h3:first-child {
+  margin-top: 0;
+}
+
+.section-card > p {
+  max-width: 72ch;
+  margin-top: var(--sp-2);    /* 16px between paragraphs */
+  margin-bottom: 0;
+}
+
+.section-card > p:first-child {
+  margin-top: 0;
+}
+
+.section-card p strong {
+  font-weight: 600;
+}
+
+
+/* ---------- Lists ---------- */
+
+.list {
+  padding-left: var(--sp-3);
+  margin-top: var(--sp-2);
+  margin-bottom: 0;
+}
+
+.list li {
+  margin-bottom: var(--sp-2);
+  line-height: 1.618;
+}
+
+.list li:last-child {
+  margin-bottom: 0;
+}
+
+
+/* ---------- Buttons ---------- */
+
+.btn {
+  display: inline-block;
+  margin-top: var(--sp-3);
+  padding: var(--sp-1) var(--sp-3);
+  border-radius: 999px;
+  border: 1.5px solid var(--pt-green);
+  background: transparent;
+  color: var(--pt-green);
+  font-size: var(--fs-base);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 120ms ease, color 120ms ease;
+}
+
+.btn:hover {
+  background: var(--pt-green);
+  color: #fff;
+  text-decoration: none;
+}
+
+.btn.primary {
+  background: var(--pt-green);
+  color: #fff;
+}
+
+.btn.primary:hover {
+  filter: brightness(1.08);
+}
+
+
+/* ---------- Newsletter CTA ---------- */
+
+.newsletter-cta {
+  margin-top: var(--sp-3);
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: var(--pt-radius);
+  border: 1px dashed rgba(76,125,74,0.35);
+  background: rgba(76,125,74,0.04);
+  font-size: var(--fs-base);
+}
+
+.newsletter-cta strong {
+  color: var(--pt-green);
+}
+
+.newsletter-button {
+  display: inline-block;
+  margin-top: var(--sp-1);
+  padding: var(--sp-1) var(--sp-2);
+  border-radius: 999px;
+  border: none;
+  background: var(--pt-green);
+  color: #fff;
+  font-size: var(--fs-base);
+  cursor: pointer;
+}
+
+.newsletter-button:hover {
+  filter: brightness(1.05);
+}
+
+
+/* ---------- Newsletter form ---------- */
+/* Shared component. Used on homepage and fieldwork/index.html.
+   .newsletter-cta above is a simpler text-only variant;
+   this is the full interactive form with inputs.
+
+   iOS Safari notes:
+   - align-items: center (not stretch) prevents input from inheriting
+     button height and rendering as a tall box
+   - explicit height + max-height on input and button as belt-and-suspenders
+   - -webkit-appearance: none disables platform default styling */
+
+.newsletter-form-block {
+  margin-top: var(--sp-3);
+  padding: var(--sp-3);
+  border-radius: var(--pt-radius);
+  border: 1px dashed rgba(76,125,74,0.35);
+  background: rgba(76,125,74,0.03);
+}
+
+.newsletter-form-block h3 {
+  font-family: "Doves Headline", Georgia, serif;
+  font-size: var(--fs-base);
+  font-weight: normal;
+  color: var(--pt-ink);
+  margin: 0 0 var(--sp-1);
+}
+
+.newsletter-form-block .desc {
+  font-size: var(--fs-sm);
+  color: rgba(0,0,0,0.60);
+  margin-bottom: var(--sp-2);
+  max-width: 52ch;
+}
+
+.newsletter-inline {
+  display: flex;
+  gap: var(--sp-1);
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.newsletter-inline input[type="email"] {
+  flex: 1 1 220px;
+  height: 40px;
+  max-height: 40px;
+  padding: 8px var(--sp-2);
+  font-family: inherit;
+  font-size: var(--fs-sm);
+  border: 1px solid rgba(0,0,0,0.16);
+  border-radius: var(--pt-radius);
+  background: var(--pt-paper);
+  color: var(--pt-ink);
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  -webkit-appearance: none;
+}
+
+.newsletter-inline input[type="email"]:focus {
+  border-color: var(--pt-green);
+  box-shadow: 0 0 0 3px rgba(76,125,74,0.12);
+}
+
+.newsletter-inline input[type="email"]::placeholder {
+  color: rgba(0,0,0,0.32);
+}
+
+/* Listmonk honeypot — must remain invisible.
+   style="display:none" is also set inline on the element itself
+   as a belt-and-suspenders measure. */
+.newsletter-inline .nonce {
+  display: none !important;
+}
+
+.newsletter-inline button {
+  height: 40px;
+  padding: 0 var(--sp-3);
+  background: var(--pt-green);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: var(--fs-sm);
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: filter 0.15s;
+  line-height: 1;
+}
+
+.newsletter-inline button:hover {
+  filter: brightness(1.08);
+}
+
+.newsletter-note {
+  margin-top: var(--sp-1);
+  font-size: var(--fs-xs);
+  color: rgba(0,0,0,0.38);
+}
+
+.newsletter-note a {
+  color: rgba(76,125,74,0.75);
+}
+
+@media (max-width: 600px) {
+  .newsletter-inline {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .newsletter-inline input[type="email"],
+  .newsletter-inline button {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+  max-width: var(--pt-max-width);
+  margin: var(--sp-5) auto var(--sp-3);
+  padding: var(--sp-2) var(--sp-3) 0;
+  text-align: center;
+  line-height: 1.45;
+  font-size: var(--fs-sm);
+  color: rgba(0,0,0,0.58);
+  border-top: 1px solid rgba(0,0,0,0.08);
+}
+
+.footer-row {
+  margin: 2px 0;
+}
+
+.footer-links {
+  margin-top: var(--sp-1);
+}
+
+.footer-links a {
+  white-space: nowrap;
+  color: rgba(76,125,74,0.92);
+}
+
+.footer-meta {
+  opacity: 0.6;
+  font-size: var(--fs-xs);
+  margin-top: var(--sp-1);
+}
+
+
+/* ---------- Tables ---------- */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: var(--sp-2) 0 var(--sp-3) 0;
+}
+
+th, td {
+  text-align: left;
+  padding: var(--sp-1) 6px;
+  vertical-align: top;
+}
+
+thead th {
+  border-bottom: 1px solid rgba(0,0,0,0.2);
+  font-weight: 600;
+}
+
+tbody tr:not(:last-child) td {
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+td:nth-child(2) {
+  font-size: var(--fs-md);
+  width: 4rem;
+}
+
+pre {
+  border-radius: var(--pt-radius);
+}
+
+table.table { width: 100%; border-collapse: collapse; margin: var(--sp-2) 0 var(--sp-3) 0; }
+table.table th, table.table td { text-align: left; padding: var(--sp-1) 6px; vertical-align: top; }
+table.table thead th { border-bottom: 1px solid rgba(0,0,0,0.2); font-weight: 600; }
+table.table tbody tr:not(:last-child) td { border-bottom: 1px solid rgba(0,0,0,0.1); }
+
+
+/* ---------- Utility ---------- */
+
+.lede {
+  font-style: italic;
+  font-size: var(--fs-md);
+  color: rgba(0,0,0,0.75);
+  margin-top: var(--sp-1);
+  line-height: 1.5;
+}
+
+.note, .archive-note {
+  margin-top: var(--sp-2);
+  color: rgba(0,0,0,0.7);
+  font-style: italic;
+  font-size: var(--fs-sm);
+}
+
+.mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+               "Liberation Mono", "Courier New", monospace;
+}
+
+.toc { margin-top: var(--sp-2); }
+.toc .list { margin: var(--sp-1) 0 0 0; padding-left: var(--sp-2); }
+
+.figure { margin: var(--sp-3) 0 var(--sp-2) 0; text-align: center; }
+.figure-img { max-width: 520px; width: 100%; height: auto; border-radius: 12px; }
+.figure-caption { margin-top: var(--sp-2); font-size: var(--fs-sm); color: rgba(0,0,0,0.75); }
+.badge-sample { margin-top: var(--sp-1); font-size: var(--fs-md); }
+
+pre.badge {
+  font-size: var(--fs-md);
+  padding: var(--sp-2);
+  background: rgba(0,0,0,0.04);
+  overflow-x: auto;
+  border-radius: 6px;
+  margin: var(--sp-2) 0;
+}
+
+
+/* ---------- Essay / Field Notes ---------- */
+
+.essay {
+  max-width: 72ch;
+  margin: 0 auto;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.12rem;
+  line-height: 1.618;           /* φ — body text breathes naturally */
+}
+
+.essay h1 {
+  margin-bottom: var(--sp-1);
+}
+
+.essay h2 {
+  font-size: var(--fs-lg);
+  margin-top: var(--sp-8);     /* 64px — Field Notes sections get full air */
+  margin-bottom: var(--sp-1);
+}
+
+.essay hr {
+  margin: var(--sp-5) 0;       /* 40px — section breaks */
+  border: none;
+  border-top: 1px solid rgba(0,0,0,0.15);
+}
+
+.essay .lede {
+  font-family: "Doves Headline", Georgia, serif;
+  font-size: var(--fs-md);
+  margin: var(--sp-2) 0 var(--sp-3);
+  padding-left: var(--sp-2);
+  border-left: 3px solid rgba(0,0,0,0.18);
+  color: rgba(0,0,0,0.78);
+  font-style: normal;
+  line-height: 1.5;
+}
+
+.essay .lede p {
+  margin: 3px 0;
+}
+
+.essay p {
+  max-width: none;
+  margin-top: var(--sp-3);     /* 24px — generous paragraph spacing in essays */
+  margin-bottom: 0;
+}
+
+.essay p:first-child {
+  margin-top: 0;
+}
+
+/* ---------- Essay aside ---------- */
+/* Editorial insertion within an essay — for unsolicited author notes
+   set apart from the main argument.
+   Reuses the dashed-green pattern from .newsletter-cta and the
+   golden-ratio type scale established in :root. */
+
+.essay-aside {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--sp-2);
+  margin: var(--sp-5) 0;
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: var(--pt-radius);
+  border: 1px dashed rgba(76,125,74,0.35);
+  background: rgba(76,125,74,0.04);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: var(--fs-base);
+  line-height: 1.5;
+}
+
+.essay-aside-marker {
+  font-size: var(--fs-lg);
+  line-height: 1;
+  color: var(--pt-green);
+  opacity: 0.6;
+  padding-top: 4px;
+  user-select: none;
+}
+
+.essay-aside-kicker {
+  font-size: var(--fs-sm);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,0.55);
+  margin: 0 0 var(--sp-1);
+}
+
+.essay-aside-body p {
+  margin: var(--sp-1) 0;
+  max-width: none;
+}
+
+.essay-aside-body p:first-of-type {
+  margin-top: 0;
+}
+
+.essay-aside-availability {
+  margin-top: var(--sp-2) !important;
+  padding-top: var(--sp-2);
+  border-top: 1px solid rgba(76,125,74,0.18);
+}
+
+@media (max-width: 540px) {
+  .essay-aside {
+    grid-template-columns: 1fr;
+    gap: var(--sp-1);
+  }
+}

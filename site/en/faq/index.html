@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>FAQ — Epoch Rollover Risk (2036/2038) — The Epochalypse Project</title>
+  <meta name="description" content="What the 2036/2038 rollovers are, the shared vocabulary to describe them, and why deferring the upgrade fails in practice.">
+  <link rel="canonical" href="https://epochalypse-project.org/en/faq/">
+  <link rel="alternate" hreflang="en" href="https://epochalypse-project.org/en/faq/">
+  <link rel="alternate" hreflang="x-default" href="https://epochalypse-project.org/en/faq/">
+
+  <meta name="robots" content="index,follow">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="theme-color" content="#1C72AD">
+
+  <meta property="og:site_name" content="Epochalypse Project">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="FAQ — Epoch Rollover Risk (2036/2038) — The Epochalypse Project">
+  <meta property="og:description" content="What the 2036/2038 rollovers are, the shared vocabulary to describe them, and why deferring the upgrade fails in practice.">
+  <meta property="og:url" content="https://epochalypse-project.org/en/faq/">
+  <meta property="og:image" content="https://epochalypse-project.org/assets/images/punk-sloth.png">
+  <meta property="og:locale" content="en_US">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="FAQ — Epoch Rollover Risk (2036/2038) — The Epochalypse Project">
+  <meta name="twitter:description" content="What the 2036/2038 rollovers are, the shared vocabulary to describe them, and why deferring the upgrade fails in practice.">
+  <meta name="twitter:image" content="https://epochalypse-project.org/assets/images/punk-sloth.png">
+
+  <link rel="icon" href="/assets/images/punk-sloth.png" type="image/png">
+
+  <link rel="stylesheet" href="/assets/css/proper.css">
+  <link rel="stylesheet" href="/assets/css/epochalypse.css">
+
+  <script type="application/ld+json">
+  { "@context": "https://schema.org", "@type": "WebPage", "name": "FAQ — Epoch Rollover Risk (2036/2038) — The Epochalypse Project", "description": "What the 2036/2038 rollovers are, the shared vocabulary to describe them, and why deferring the upgrade fails in practice.", "url": "https://epochalypse-project.org/en/faq/", "isPartOf": { "@type": "WebSite", "name": "Epochalypse Project", "url": "https://epochalypse-project.org/" } }
+  </script>
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <div class="site-brand">
+      <a href="/en/" class="site-logo-link" aria-label="Epochalypse Project home">
+        <img src="/assets/images/punk-sloth.png" alt="Epochalypse Project logo" class="site-logo">
+      </a>
+      <a href="/en/" class="site-title-link" aria-label="Epochalypse Project home">
+        <div class="site-title-block">
+          <div class="site-title">Epochalypse Project</div>
+          <div class="site-tagline">Time Integrity &amp; Epoch Rollover Risk</div>
+          <div class="site-subtitle">Raising awareness of the 2036&#8211;2038 rollovers &#8212; and fixing things while there's still time.</div>
+        </div>
+      </a>
+    </div>
+    <nav class="site-nav" aria-label="Primary navigation">
+      <div class="site-nav-group">
+        <a href="/en/">Home</a>
+        <a href="/en/faq/" aria-current="page">FAQ</a>
+        <a href="/en/public-safety/">Public safety</a>
+        <a href="/en/evidence/">Evidence</a>
+      </div>
+      <div class="site-nav-group">
+        <a href="/en/how-can-i-help/">How can I help?</a>
+        <a href="/en/further-reading/">Further reading</a>
+        <a href="https://www.first.org/global/sigs/time/">Time SIG</a>
+        <a href="https://github.com/Epochalypse-Project/epochalypse-project.org/issues">Issues</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<div class="page">
+  <main>
+    <section class="section-card">
+<h1 id="faq-epoch-rollover-risk-2036-2038">FAQ — Epoch rollover risk (2036 / 2038)<a class="headerlink" href="#faq-epoch-rollover-risk-2036-2038" title="Link to this section">#</a></h1>
+<p class="lede">What the 2036/2038 rollovers are, why "we'll upgrade later" fails in practice, and the words to describe it.</p>
+<div class="toc">
+<ul class="list">
+<li><a href="#the-basics">The Basics</a></li>
+<li><a href="#glossary">Glossary</a></li>
+<li><a href="#technical-reality">Technical Reality</a></li>
+</ul>
+</div>
+<h2 id="the-basics">The Basics<a class="headerlink" href="#the-basics" title="Link to this section">#</a></h2>
+<h3 id="what-is-the-year-2038-problem">What is the "Year 2038 problem"?<a class="headerlink" href="#what-is-the-year-2038-problem" title="Link to this section">#</a></h3>
+<p>Many systems store time as a 32-bit signed integer counting seconds since 1970-01-01T00:00:00Z ("Unix time", <code>time_t</code>). That counter reaches its maximum value and overflows at <strong>2038-01-19 03:14:07 UTC</strong>.</p>
+<p>After overflow, some systems interpret the time as a date in 1901, causing incorrect calculations, mis-ordered events, crashes, or other failures.</p>
+<p>It will not all happen at once, though, and no one can say precisely what will. Behaviour past the boundary is system-specific: a device may crash, freeze, or — the worst case — keep running while producing wrong results, with no error to draw attention to it. Failures won't arrive in a single synchronised wave either; they surface unevenly, before and after the date, often where they are hard to test and harder to attribute. That unpredictability is not hand-waving — it reflects how varied the affected systems are, which is why mapping where exposure lives and testing it in place matter more than any single forecast.</p>
+<h3 id="why-was-time-stored-in-only-32-bits-in-the-first-place">Why was time stored in only 32 bits in the first place?<a class="headerlink" href="#why-was-time-stored-in-only-32-bits-in-the-first-place" title="Link to this section">#</a></h3>
+<p>Because memory used to be scarce and expensive, and engineers economised wherever they could. When these conventions were set, a 32-bit field was a sensible trade-off, and it became deeply embedded across the industry through the following decades. Even after 64-bit systems became common, 32-bit time persisted in equipment that doesn't need much processing power — sensors, valves, controllers — on the assumption that updates would be made in good time. The assumption was reasonable; what often failed was the follow-through, as the records of where those systems are and how they encode time were gradually lost.</p>
+<h3 id="what-will-actually-happen-on-19-january-2038-will-everything-crash-at-once">What will actually happen on 19 January 2038? Will everything crash at once?<a class="headerlink" href="#what-will-actually-happen-on-19-january-2038-will-everything-crash-at-once" title="Link to this section">#</a></h3>
+<p>Short version: it won't all happen at once, and the behaviour is system-specific and hard to predict. The fuller answer is folded into <a href="#what-is-the-year-2038-problem">What is the "Year 2038 problem"?</a> above.</p>
+<h3 id="is-2038-one-event-or-part-of-a-sequence">Is 2038 one event, or part of a sequence?<a class="headerlink" href="#is-2038-one-event-or-part-of-a-sequence" title="Link to this section">#</a></h3>
+<p>It is one of a family of related events. The table below sets out the reference points each representation counts from, the rollovers already behind us, and those still ahead:</p>
+<div class="table-wrap"><table class="table">
+<thead>
+<tr>
+<th>Date</th>
+<th>Event</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1900-01-01</td>
+<td>NTP epoch (and two-digit-year encoding) established</td>
+<td>Reference point</td>
+</tr>
+<tr>
+<td>1970-01-01</td>
+<td>Unix epoch established</td>
+<td>Reference point</td>
+</tr>
+<tr>
+<td>1980-01-06</td>
+<td>GPS epoch established</td>
+<td>Reference point</td>
+</tr>
+<tr>
+<td>1999-08-21</td>
+<td>GPS week-number rollover (era 0 → 1)</td>
+<td>Past — documented effects</td>
+</tr>
+<tr>
+<td>2000-01-01</td>
+<td>Y2K two-digit-year rollover</td>
+<td>Past — mitigated</td>
+</tr>
+<tr>
+<td>2019-04-06</td>
+<td>GPS week-number rollover (era 1 → 2)</td>
+<td>Past — partly mitigated</td>
+</tr>
+<tr>
+<td>2036-02-07 06:28:16 UTC</td>
+<td>NTP era-1 rollover (32-bit unsigned seconds from the 1900 epoch)</td>
+<td>Pending</td>
+</tr>
+<tr>
+<td>2038-01-19 03:14:07 UTC</td>
+<td>Unix 32-bit signed <code>time_t</code> rollover (from the 1970 epoch)</td>
+<td>Pending</td>
+</tr>
+<tr>
+<td>2038-11-20 ≈23:59:42 UTC</td>
+<td>GPS week-number rollover (era 2 → 3)</td>
+<td>Pending</td>
+</tr>
+<tr>
+<td>2106-02-07 06:28:16 UTC</td>
+<td>Unix 32-bit unsigned rollover (from the 1970 epoch)</td>
+<td>Long-tail</td>
+</tr>
+<tr>
+<td>≈292 billion years after 1970</td>
+<td>Unix 64-bit signed <code>time_t</code> rollover</td>
+<td>Long-tail (cosmological)</td>
+</tr>
+</tbody>
+</table></div>
+<p>A rollover is range exhaustion of a representation, not a change to the epoch it counts from: the reference points stay fixed; what runs out is the room to count from them. The 2036 boundary can reveal failure modes before 2038, especially through time-synchronisation dependencies, and the two 2038 events — <code>time_t</code> in January and the GPS week number in November — are structurally distinct problems that happen to fall in the same year. (The November 2038 GPS time assumes the current GPS–UTC offset of +18 seconds, which future leap-second decisions could shift.)</p>
+<p>The last two rows are different in kind. The 2106 row is what you get if you "fix" 2038 by switching to unsigned 32-bit — it defers the rollover rather than removing it. The 64-bit signed horizon, by contrast, lands roughly 292 billion years out, well beyond the Sun's remaining lifetime; it takes the rollover off any timescale a deployed system could survive on. We give no weekday for that row on purpose: the arithmetic is trivial, but the civil scaffolding needed to read it — leap-year conventions, possible calendar reforms, the slow drift of Earth's rotation — is nowhere near stable across 292 billion years. The deeper point is that the meaning attached to a date decays far faster than a clock's precision, because that meaning is carried by institutions, and institutional memory is short. Within roughly three centuries the Christian church had already lost any authoritative record of the birth and death dates of its own central figure; the dates observed today are later reconstructions, chosen on symbolic grounds rather than from evidence. A clock can pinpoint an instant 292 billion years out — but nothing will be left that can say what that instant meant.</p>
+<h3 id="why-isnt-this-solved-already">Why isn't this solved already?<a class="headerlink" href="#why-isnt-this-solved-already" title="Link to this section">#</a></h3>
+<p>Two reasons, and the first is the uncomfortable one: it is genuinely hard. Moving to 64-bit time is not a one-line patch but an ABI-level change that has to hold end-to-end — kernel, libraries, applications, database schemas, file formats, and protocol fields. In embedded and long-lived systems it can mean firmware rework, or physical replacement where there is no upgrade path at all. And the remediation pathways are still only partly mapped: for a large share of the installed base there is no clean fix on the timeline available, which is why the work now spans harm-minimisation as much as repair, and why even measuring exposure reliably remains an emerging discipline.</p>
+<p>The second reason compounds the first: the difficulty is largely invisible. 32-bit time is a deep, load-bearing assumption rather than obvious legacy code, so it seldom surfaces where attention, budget, and responsibility are allocated — and few have a reason to own the fix before something breaks.</p>
+<h3 id="what-makes-the-problem-persist">What makes the problem persist?<a class="headerlink" href="#what-makes-the-problem-persist" title="Link to this section">#</a></h3>
+<p>Several interlocking conditions keep it alive. 32-bit time is not "old code"; it is a deep assumption embedded so thoroughly that systems treat it as axiomatic. Software built for three-to-five-year cycles is deployed into infrastructure that lasts twenty to fifty years. Multi-layer supply chains make "who owns the fix?" genuinely unclear. Testing is hard and sometimes impossible, because you often cannot safely set production clocks forward, and laboratory tests cannot fully replicate complex, interconnected behaviour. And the incentives are misaligned: costs are local, benefits are diffuse, and disclosure is legally uncomfortable.</p>
+<h3 id="isnt-this-just-like-y2k">Isn't this "just like Y2K"?<a class="headerlink" href="#isnt-this-just-like-y2k" title="Link to this section">#</a></h3>
+<p>It is related, but different. Y2K was largely a data-formatting problem (two-digit years). 2038 is more often a systems-integration problem, where failures appear at boundaries — between platforms, libraries, protocols, devices, databases, and supply chains.</p>
+<p>It is also worth remembering that Y2K did not turn out fine by luck. It turned out fine because of an unusually large, coordinated remediation effort.</p>
+<p>The scale is different too. The population of connected, potentially affected devices today is far larger than in 2000 — by most informal estimates orders of magnitude larger, though no authoritative inventory exists — and much of it sits in embedded and industrial systems that are harder to find and harder to touch than the mainframes and business software that dominated Y2K remediation.</p>
+<p>A more cautionary precedent is IPv4 → IPv6: a load-bearing field outgrowing its protocol, with the fix available throughout. Specified in 1998, IPv6 first carried the majority of Google's traffic only in March 2026 — nearly three decades to retire a known limitation, and only once address exhaustion forced the issue. 2038, by contrast, has a fixed deadline rather than a slow squeeze, and no equivalent forcing function to concentrate minds.</p>
+<h2 id="glossary">Glossary<a class="headerlink" href="#glossary" title="Link to this section">#</a></h2>
+<div class="table-wrap"><table class="table">
+<thead>
+<tr>
+<th>Term</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td id="term-2038-class-risk-exposure-matrix" class="gloss-term">2038-Class Risk Exposure Matrix <a class="anchor" href="#term-2038-class-risk-exposure-matrix" aria-label="Link to this definition">#</a></td>
+<td>An open-source qualitative risk-analysis framework for comparing unlike risks across impact, uncertainty, difficulty, and blast radius</td>
+</tr>
+<tr>
+<td id="term-2038-class-rollover-event" class="gloss-term">2038-class rollover event <a class="anchor" href="#term-2038-class-rollover-event" aria-label="Link to this definition">#</a></td>
+<td>Any rollover that arises when a finite time representation meets a system lifecycle longer than its design assumed — the 2036 NTP era rollover, the 2038 <code>time_t</code> overflow, the 2038 GPS week-number rollover, the 2106 unsigned overflow, and, in hindsight, Y2K. The defining trait is the pattern, not any single date</td>
+</tr>
+<tr>
+<td id="term-assessment-levels" class="gloss-term">Assessment levels <a class="anchor" href="#term-assessment-levels" aria-label="Link to this definition">#</a></td>
+<td>The four-level scheme used across this site to grade how a claim is known: Observed (empirical) — directly measured or documented; Reported (field) — a credible report, not independently verified here; Suspected (theoretical) — expected on reasoning or precedent, not yet demonstrated; Unexamined (evidence gap) — no one has looked closely yet</td>
+</tr>
+<tr>
+<td id="term-blast-radius" class="gloss-term">Blast radius <a class="anchor" href="#term-blast-radius" aria-label="Link to this definition">#</a></td>
+<td>Scope of impact when a system fails: local versus cascading</td>
+</tr>
+<tr>
+<td id="term-capacity-to-rebuild" class="gloss-term">Capacity-to-rebuild <a class="anchor" href="#term-capacity-to-rebuild" aria-label="Link to this definition">#</a></td>
+<td>The combined technical, institutional, and human capacity available to maintain, change, or reconstruct deployed infrastructure when remediation is needed — separate from whether the system currently runs. It can erode through reorganisation, staff dispersal, documentation decay, or lost build environments and toolchains</td>
+</tr>
+<tr>
+<td id="term-coherence-invariant" class="gloss-term">Coherence invariant <a class="anchor" href="#term-coherence-invariant" aria-label="Link to this definition">#</a></td>
+<td>Informally, the condition that any two systems reach compatible outcomes when they validate the same time-dependent thing under shared assumptions. It holds while systems share a coherent view of time across a rollover boundary, and fails when partial migration or manipulation pushes them into disagreement</td>
+</tr>
+<tr>
+<td id="term-coherent-time" class="gloss-term">Coherent time <a class="anchor" href="#term-coherent-time" aria-label="Link to this definition">#</a></td>
+<td>The property of a distributed system whose components share a common, forward-moving, comparable sense of time, accurate enough to coordinate. It requires agreement on ordering and progression, not absolute accuracy against any external reference</td>
+</tr>
+<tr>
+<td id="term-epoch-rollover" class="gloss-term">Epoch rollover <a class="anchor" href="#term-epoch-rollover" aria-label="Link to this definition">#</a></td>
+<td>When a system's time counter runs out of range and overflows, wraps, or enters an undefined state. The reference epoch itself doesn't change — what fails is the system's ability to represent time relative to it</td>
+</tr>
+<tr>
+<td id="term-infrastructural-vestigialisation" class="gloss-term">Infrastructural vestigialisation <a class="anchor" href="#term-infrastructural-vestigialisation" aria-label="Link to this definition">#</a></td>
+<td>When deployed infrastructure keeps running but the institutional and human capacity to maintain, change, or rebuild it has withered below what a coordinated rebuild would need. 2038-class events don't create this condition; they expose how far it has already gone</td>
+</tr>
+<tr>
+<td id="term-monotonicity-monotonic-time" class="gloss-term">Monotonicity / monotonic time <a class="anchor" href="#term-monotonicity-monotonic-time" aria-label="Link to this definition">#</a></td>
+<td>The property that observed time only moves forward — it doesn't reverse, jump back, or repeat. Required for log ordering, consensus, replay protection, and audit integrity. Can be lost through clock correction, rollover, or a time source being replaced with one carrying an earlier value</td>
+</tr>
+<tr>
+<td id="term-ntp" class="gloss-term">NTP <a class="anchor" href="#term-ntp" aria-label="Link to this definition">#</a></td>
+<td>Network Time Protocol (time synchronisation)</td>
+</tr>
+<tr>
+<td id="term-nts" class="gloss-term">NTS <a class="anchor" href="#term-nts" aria-label="Link to this definition">#</a></td>
+<td>Network Time Security (cryptographic protection for NTP)</td>
+</tr>
+<tr>
+<td id="term-semantic-primitive" class="gloss-term">Semantic primitive <a class="anchor" href="#term-semantic-primitive" aria-label="Link to this definition">#</a></td>
+<td>A foundational assumption so deep that systems treat it as "just how reality works"</td>
+</tr>
+<tr>
+<td id="term-temporal-root-of-trust" class="gloss-term">Temporal root of trust <a class="anchor" href="#term-temporal-root-of-trust" aria-label="Link to this definition">#</a></td>
+<td>The usually-implicit assumption that components share coherent time, on which higher-level cybersecurity depends — authentication windows, certificate lifetimes, replay protection, log ordering, audit integrity. Degrade the time and those guarantees degrade with it</td>
+</tr>
+<tr>
+<td id="term-time-delta-discontinuity" class="gloss-term">Time delta discontinuity <a class="anchor" href="#term-time-delta-discontinuity" aria-label="Link to this definition">#</a></td>
+<td>An error in calculating the gap between two times, caused by one value wrapping or overflowing, or by hard-coded constants. It can surface long after the event, or appear only fleetingly — while the two reference points sit on opposite sides of a rollover</td>
+</tr>
+<tr>
+<td id="term-time-desynchronisation" class="gloss-term">Time desynchronisation <a class="anchor" href="#term-time-desynchronisation" aria-label="Link to this definition">#</a></td>
+<td>When two or more systems hold times that have drifted apart beyond the tolerance their coordination needs. Distinct from inaccuracy: systems can share a wrong time and stay synchronised, or share an accurate time and fall out of sync</td>
+</tr>
+<tr>
+<td id="term-time-security" class="gloss-term">Time security <a class="anchor" href="#term-time-security" aria-label="Link to this definition">#</a></td>
+<td>The discipline concerned with the integrity, authenticity, and availability of time as it is produced, distributed, and consumed. It reaches beyond synchronisation (aligning clocks) to the cybersecurity of time-distribution protocols, the resilience of time sources against manipulation, and the correctness of time-handling code</td>
+</tr>
+<tr>
+<td id="term-time_t" class="gloss-term"><code>time_t</code> <a class="anchor" href="#term-time_t" aria-label="Link to this definition">#</a></td>
+<td>Common Unix/POSIX time representation, often 32-bit signed in legacy and embedded contexts</td>
+</tr>
+<tr>
+<td id="term-triage-by-failure-tempo" class="gloss-term">Triage-by-failure-tempo <a class="anchor" href="#term-triage-by-failure-tempo" aria-label="Link to this definition">#</a></td>
+<td>Prioritising response by how quickly the human consequences of a failure arrive: life-safety systems first, then critical infrastructure, then economic and financial systems, which have more room to respond. A way to spend bounded response capacity where it matters most</td>
+</tr>
+<tr>
+<td id="term-wall-clock-time" class="gloss-term">Wall clock time <a class="anchor" href="#term-wall-clock-time" aria-label="Link to this definition">#</a></td>
+<td>Civil time as a human reads it — calendar date, time of day, time-zone offset, and adjustments like daylight saving or leap seconds. It is the human-legible projection of an underlying timestamp, not a stable reference for coordination: the same instant can read differently across places and adjustments, and the same reading can map to different underlying timestamps</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="technical-reality">Technical Reality<a class="headerlink" href="#technical-reality" title="Link to this section">#</a></h2>
+<h3 id="if-our-computers-are-64-bit-now-arent-we-safe">If our computers are 64-bit now, aren't we safe?<a class="headerlink" href="#if-our-computers-are-64-bit-now-arent-we-safe" title="Link to this section">#</a></h3>
+<p>No — this is a common misconception, and it comes in two flavours. The first is that a 64-bit OS makes a system safe: it doesn't, because any single layer can still use 32-bit time — application code, libraries and toolchains, database column types, file formats, protocol and network fields, device firmware, or the API contracts between systems. "64-bit OS" is not the same as "2038-safe."</p>
+<p>The second is that the problem will simply age out as old equipment is retired. It won't: 32-bit time is still being designed into new products, and 32-bit silicon continues to ship in volume, so the substrate is replenished roughly as fast as it retires.</p>
+<p>And even genuine 64-bit time is not automatically permanent — the horizon depends on the storage resolution, not only the bit-width. A 64-bit count of whole seconds from 1970 lasts about 292 billion years; at millisecond resolution that falls to roughly 292 million years, at microseconds to about 292,000 years, and at nanoseconds to roughly 292 years — a rollover in the 23rd century, around 2262. Nanosecond 64-bit timestamps are common (Linux's real-time clock and several language runtimes use them), so "we moved to 64-bit" only settles the question once the resolution has been checked for headroom as well.</p>
+<h3 id="when-did-32-bit-posix-time-stop-being-used">When did 32-bit POSIX time stop being used?<a class="headerlink" href="#when-did-32-bit-posix-time-stop-being-used" title="Link to this section">#</a></h3>
+<p>It didn't. 32-bit assumptions persist today, sometimes in modern products. This is not a historical artefact — it is a copied design pattern. The transition to 64-bit time has been gradual, inconsistent, and incomplete, especially across embedded systems, compatibility builds, and long-lived data formats.</p>
+<p>Upstream, much of the core transition is in fact done — the Linux kernel, glibc, and Debian's time64 work are largely complete. But moving to 64-bit time is an ABI change, not a bug that can be silently backported, so the embedded and long-tail installed base lags well behind the upstream fix. One consequence is useful for defenders: because the fix cannot be quietly slipped in under an unchanged version string, an old version banner is a more reliable signal of exposure here than it is for an ordinary CVE.</p>
+<h3 id="what-about-ai-generated-code-and-vibe-coding">What about AI-generated code and "vibe coding"?<a class="headerlink" href="#what-about-ai-generated-code-and-vibe-coding" title="Link to this section">#</a></h3>
+<p>Large language models are trained on decades of existing code — including decades of 32-bit time assumptions. When developers lean on statistically common patterns, models can reproduce exactly the patterns that need remediation. There are still few widely deployed guardrails — lint rules, static analysis, CI checks — that consistently warn "this fails in 2038."</p>
+<p>So the risk is not only legacy code. It can be actively reintroduced.</p>
+<p>The substrate is also still expanding: 32-bit silicon continues to ship in growing volumes into products that will outlive 2038. The risk, then, is that we automate the propagation of the very pattern we most need to retire. Two cheap, high-leverage interventions remain undone: making coding assistants sensitive to the 2038 pattern, and sweeping open-source libraries to surface and flag time-handling code. Neither is yet anyone's job.</p>
+<h3 id="what-kinds-of-systems-are-most-at-risk">What kinds of systems are most at risk?<a class="headerlink" href="#what-kinds-of-systems-are-most-at-risk" title="Link to this section">#</a></h3>
+<p>Not the ones people tend to picture. Consumer-electronics turnover is fast; the risk concentrates in long-lived, low-visibility infrastructure.</p>
+<div class="table-wrap"><table class="table">
+<thead>
+<tr>
+<th>Sector</th>
+<th style="text-align: right;">Typical lifetime</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Medical devices</td>
+<td style="text-align: right;">10–25 years</td>
+<td>Recertification and safety constraints</td>
+</tr>
+<tr>
+<td>Industrial control (PLCs/SCADA)</td>
+<td style="text-align: right;">20–30 years</td>
+<td>Often no upgrade path</td>
+</tr>
+<tr>
+<td>Transport infrastructure</td>
+<td style="text-align: right;">Decades</td>
+<td>Signalling, onboard systems</td>
+</tr>
+<tr>
+<td>Building management</td>
+<td style="text-align: right;">15–30 years</td>
+<td>HVAC, lifts, access control</td>
+</tr>
+<tr>
+<td>Automotive systems</td>
+<td style="text-align: right;">15–20 years</td>
+<td>Many ECUs; vehicles expected to last into 2038</td>
+</tr>
+<tr>
+<td>Telecom infrastructure</td>
+<td style="text-align: right;">10–25 years</td>
+<td>Billing, lawful intercept, synchronisation</td>
+</tr>
+<tr>
+<td>Time synchronisation</td>
+<td style="text-align: right;">Indefinite</td>
+<td>Centralised defaults and shared dependencies</td>
+</tr>
+</tbody>
+</table></div>
+<p>The devices you don't think about are where the risk concentrates.</p>
+<h3 id="whats-the-relationship-between-2038-and-ntp">What's the relationship between 2038 and NTP?<a class="headerlink" href="#whats-the-relationship-between-2038-and-ntp" title="Link to this section">#</a></h3>
+<p>NTP has its own rollover boundary: 2036-02-07.</p>
+<p>The fix for it has been available in ntpd's stable branch since 2014 — though it is not always enabled by default, so a current version is necessary but not always sufficient — and legacy deployments persist regardless. The project's most recent scan of roughly 125,000 internet-facing servers whose NTPd version could be identified found over 40% at high or medium risk of the 2036 rollover. A further subtlety compounds this: NTPv3 and NTPv4 share wire formats for backward compatibility, and without explicit version signalling two systems can interpret the same bytes under different semantic models, with knock-on effects for era-rollover handling.</p>
+<p>There is also a present-day exposure here, independent of any rollover. Much of the world's time comes from a handful of large public services that billions of devices use by default, sometimes by hardcoded configuration — and independent measurement has found their resilience uneven and their adoption of integrity protection (NTS, which authenticates NTP) low, leaving many time exchanges open to manipulation in transit. Weak time today is the same attack surface the rollovers will stress further.</p>
+<p>The practical lesson: "we have time" is not a remediation strategy.</p>
+<h3 id="what-are-the-main-technical-fixes">What are the main technical fixes?<a class="headerlink" href="#what-are-the-main-technical-fixes" title="Link to this section">#</a></h3>
+<p>There are a few main approaches.</p>
+<p>1) Move to 64-bit time fields — the best long-term fix. Effective for any practical timeframe, but it must be end-to-end: kernel, libraries, applications, schemas, formats, and protocol boundaries.</p>
+<p>2) Switch to unsigned 32-bit — buys time, not a cure. Defers the rollover to 2106, but breaks representation of dates before 1970 in many designs and creates a second rollover event later. A fallback, not a durable solution.</p>
+<p>3) Use a different representation — for example Windows FILETIME, calendar-component types (DATETIME), or ISO 8601 strings. Each has trade-offs.</p>
+<p>4) Replace the hardware. For embedded systems with no upgrade path, physical replacement is the only option.</p>
+<h3 id="whats-the-hardest-part-of-remediation">What's the hardest part of remediation?<a class="headerlink" href="#whats-the-hardest-part-of-remediation" title="Link to this section">#</a></h3>
+<p>Inventory. You cannot patch what you cannot find. Few organisations have a complete map of every place timestamps are stored, compared, transmitted, and computed — especially across suppliers and integration points.</p>
+<p>Remote scanning and fingerprinting help, but they are triage for prioritising in-situ testing, not proof of safety: they can tell you roughly where exposure is likely to concentrate, not give an exact count or clear an individual system.</p>
+<div class="related">
+  <p class="related-heading">Explore more</p>
+  <ul class="related-list">
+      <li><a href="/en/public-safety/">Public safety</a> &#8212; <span class="blurb">the safety and cybersecurity stakes</span></li>
+      <li><a href="/en/evidence/">Evidence</a> &#8212; <span class="blurb">the documented track record</span></li>
+      <li><a href="/en/how-can-i-help/">How can I help?</a> &#8212; <span class="blurb">what to do about it</span></li>
+  </ul>
+</div>
+    </section>
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-row">Epochalypse Project &#8758; public awareness and coordination on 2036&#8211;2038 time-rollover risk.</div>
+  <div class="footer-row footer-links">
+    <a href="/en/">Home</a> &#8758;
+    <a href="/en/faq/">FAQ</a> &#8758;
+    <a href="/en/public-safety/">Public safety</a> &#8758;
+    <a href="/en/evidence/">Evidence</a> &#8758;
+    <a href="/en/how-can-i-help/">How can I help?</a> &#8758;
+    <a href="/en/further-reading/">Further reading</a> &#8758;
+    <a href="https://www.first.org/global/sigs/time/">FIRST Time Security SIG</a> &#8758;
+    <a href="https://github.com/Epochalypse-Project/epochalypse-project.org/issues">Issues</a>
+  </div>
+  <div class="footer-row footer-meta">Last updated: 2026-06-18</div>
+</footer>
+
+</body>
+</html>

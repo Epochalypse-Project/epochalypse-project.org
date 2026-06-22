@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Evidence — The Epochalypse Project</title>
+  <meta name="description" content="Documented 2038-class rollover failures and precedents: GPS rollovers, an ICS advisory, rail litigation, and more.">
+  <link rel="canonical" href="https://epochalypse-project.org/en/evidence/">
+  <link rel="alternate" hreflang="en" href="https://epochalypse-project.org/en/evidence/">
+  <link rel="alternate" hreflang="x-default" href="https://epochalypse-project.org/en/evidence/">
+
+  <meta name="robots" content="index,follow">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="theme-color" content="#1C72AD">
+
+  <meta property="og:site_name" content="Epochalypse Project">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Evidence — The Epochalypse Project">
+  <meta property="og:description" content="Documented 2038-class rollover failures and precedents: GPS rollovers, an ICS advisory, rail litigation, and more.">
+  <meta property="og:url" content="https://epochalypse-project.org/en/evidence/">
+  <meta property="og:image" content="https://epochalypse-project.org/assets/images/punk-sloth.png">
+  <meta property="og:locale" content="en_US">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Evidence — The Epochalypse Project">
+  <meta name="twitter:description" content="Documented 2038-class rollover failures and precedents: GPS rollovers, an ICS advisory, rail litigation, and more.">
+  <meta name="twitter:image" content="https://epochalypse-project.org/assets/images/punk-sloth.png">
+
+  <link rel="icon" href="/assets/images/punk-sloth.png" type="image/png">
+
+  <link rel="stylesheet" href="/assets/css/proper.css">
+  <link rel="stylesheet" href="/assets/css/epochalypse.css">
+
+  <script type="application/ld+json">
+  { "@context": "https://schema.org", "@type": "WebPage", "name": "Evidence — The Epochalypse Project", "description": "Documented 2038-class rollover failures and precedents: GPS rollovers, an ICS advisory, rail litigation, and more.", "url": "https://epochalypse-project.org/en/evidence/", "isPartOf": { "@type": "WebSite", "name": "Epochalypse Project", "url": "https://epochalypse-project.org/" } }
+  </script>
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <div class="site-brand">
+      <a href="/en/" class="site-logo-link" aria-label="Epochalypse Project home">
+        <img src="/assets/images/punk-sloth.png" alt="Epochalypse Project logo" class="site-logo">
+      </a>
+      <a href="/en/" class="site-title-link" aria-label="Epochalypse Project home">
+        <div class="site-title-block">
+          <div class="site-title">Epochalypse Project</div>
+          <div class="site-tagline">Time Integrity &amp; Epoch Rollover Risk</div>
+          <div class="site-subtitle">Raising awareness of the 2036&#8211;2038 rollovers &#8212; and fixing things while there's still time.</div>
+        </div>
+      </a>
+    </div>
+    <nav class="site-nav" aria-label="Primary navigation">
+      <div class="site-nav-group">
+        <a href="/en/">Home</a>
+        <a href="/en/faq/">FAQ</a>
+        <a href="/en/public-safety/">Public safety</a>
+        <a href="/en/evidence/" aria-current="page">Evidence</a>
+      </div>
+      <div class="site-nav-group">
+        <a href="/en/how-can-i-help/">How can I help?</a>
+        <a href="/en/further-reading/">Further reading</a>
+        <a href="https://www.first.org/global/sigs/time/">Time SIG</a>
+        <a href="https://github.com/Epochalypse-Project/epochalypse-project.org/issues">Issues</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<div class="page">
+  <main>
+    <section class="section-card">
+<h1 id="evidence">Evidence<a class="headerlink" href="#evidence" title="Link to this section">#</a></h1>
+<p class="lede">The documented track record — the failures and near-misses that make 2036–2038 an engineering forecast rather than a prediction.</p>
+<div class="toc">
+<ul class="list">
+<li><a href="#are-there-public-examples-of-2038-class-issues">Are there public examples of 2038-class issues?</a></li>
+<li><a href="#will-every-failure-around-2038-be-a-2038-bug">Will every failure around 2038 be a 2038 bug?</a></li>
+<li><a href="#why-dont-we-see-more-public-industrial-cases">Why don't we see more public industrial cases?</a></li>
+<li><a href="#has-anyone-actually-fixed-it">Has anyone actually fixed it?</a></li>
+</ul>
+</div>
+<div class="lvl-legend">
+<span class="lvl-legend-label">Assessment levels</span>
+<span class="lvl lvl-observed">Observed</span> empirical — directly measured or documented &#183;
+<span class="lvl lvl-reported">Reported</span> field — a credible report, not independently verified here &#183;
+<span class="lvl lvl-suspected">Suspected</span> theoretical — expected on reasoning or precedent, not yet demonstrated &#183;
+<span class="lvl lvl-unexamined">Unexamined</span> evidence gap — no one has looked closely yet
+</div>
+
+<h2 id="are-there-public-examples-of-2038-class-issues">Are there public examples of 2038-class issues?<a class="headerlink" href="#are-there-public-examples-of-2038-class-issues" title="Link to this section">#</a></h2>
+<p>Yes — though public examples are rarer than they should be, because disclosure incentives are poor. Several concrete categories exist.</p>
+<p><span class="lvl lvl-observed">Observed</span> Modern software is already hitting 2037 boundaries. Some calendar and scheduling systems visibly fail or refuse to schedule beyond late 2037, which shows that modern applications can still inherit 32-bit assumptions.</p>
+<p>Databases carry documented time limits. Some timestamp types and schemas historically encode 32-bit epoch seconds, creating boundaries that matter for long-lived records.</p>
+<p>Time-synchronisation infrastructure acts as an early warning. The 2036 NTP boundary will surface first, and legacy deployments persist despite long-available patches.</p>
+<p><span class="lvl lvl-observed">Observed</span> Industrial and critical-infrastructure disclosures are now concrete. In October 2025, CISA issued an <a href="/en/further-reading/#ref-cisa-icsa-25-296-03">ICS advisory</a> (ICSA-25-296-03, CVE-2025-55067) covering improper handling of Unix time past the 2038 rollover in an automatic tank gauge (ATG) — the kind of console that monitors underground fuel storage, including leak detection. When the clock crosses 19 January 2038 the affected device resets to 1901, producing administrative lockout, loss of login and history access, termination of leak-detection routines, and corrupted logs. Because the fault is time-triggered, an attacker able to manipulate the device's time can induce the same denial of service today. The leak-detection failure carries a physical-safety dimension, not merely a data one: an ATG that cannot complete a leak test is a safety control that has quietly stopped working. The advisory identifies the specific product; what matters here is the failure class. This is a time-handling fault, and should not be confused with the separate, unrelated 2026 advisories about internet-exposed tank gauges.</p>
+<p><span class="lvl lvl-reported">Reported</span> A case in France involving Paris transit rolling stock is a rare court-visible example, because the dispute reached a tribunal rather than staying private. It concerns time-related exposure in embedded train software and, centrally, who is responsible for addressing it — the operator (RATP) and the manufacturer (Alstom) take different views. A <a href="/en/further-reading/#ref-ratp-alstom">Paris administrative tribunal</a> ruled in late 2025; the decision is under appeal, and the questions of fault and cost remain contested between the parties. We flag it not to apportion blame — both sides raise legitimate points, and the matter is unresolved — but because it shows the responsibility question this FAQ keeps returning to being worked out in court rather than in advance.</p>
+<h2 id="will-every-failure-around-2038-be-a-2038-bug">Will every failure around 2038 be a 2038 bug?<a class="headerlink" href="#will-every-failure-around-2038-be-a-2038-bug" title="Link to this section">#</a></h2>
+<p>No — and assuming so will mislead triage. Rollover dates attract other latent bugs that aren't themselves rollover faults but cluster nearby: a well-known case from the Y2K period was a leap-year calculation error that broke a line of equipment on New Year's Eve 1999 and was widely mistaken for a Y2K bug. Around the 2036–2038 window, expect a mix of genuine rollover faults, unrelated bugs surfaced by the same forward-time testing, and vendor-specific quirks that merely resemble the pattern. Telling them apart matters both operationally — so effort goes where it belongs — and for public communication, so the account stays accurate rather than attributing everything in sight to "the 2038 bug."</p>
+<h2 id="why-dont-we-see-more-public-industrial-cases">Why don't we see more public industrial cases?<a class="headerlink" href="#why-dont-we-see-more-public-industrial-cases" title="Link to this section">#</a></h2>
+<p>Because the system discourages speaking openly. Acknowledging unremediated exposure creates legal and reputational risk; engineers often cannot speak publicly; vendors face liability in admitting flaws in shipped products; and public companies face potential disclosure obligations.</p>
+<p>The result is structural silence: the people who know often can't talk, and the people who can talk often don't know.</p>
+<h2 id="has-anyone-actually-fixed-it">Has anyone actually fixed it?<a class="headerlink" href="#has-anyone-actually-fixed-it" title="Link to this section">#</a></h2>
+<p><span class="lvl lvl-reported">Reported</span> Some have, and a few have said so publicly. Apple has stated that it prepared its hardware and software well ahead of time; the Linux kernel and the GNU C Library have done the substantial work of moving to 64-bit time. Beyond a handful of such cases, public confirmation is thin: asked directly, large organisations tend to respond with silence or a brief assurance that the risk is "under control", rarely with detail. That pattern is itself informative. It is consistent with the disclosure disincentives above — fixing quietly carries no penalty, while saying so invites scrutiny — so the absence of reported problems should not be read as evidence that the problem has been handled.</p>
+<div class="related">
+  <p class="related-heading">Explore more</p>
+  <ul class="related-list">
+      <li><a href="/en/public-safety/">Public safety</a> &#8212; <span class="blurb">why it is exploitable now, not only in 2038</span></li>
+      <li><a href="/en/how-can-i-help/">How can I help?</a> &#8212; <span class="blurb">reduce exposure now</span></li>
+      <li><a href="/en/faq/">FAQ</a> &#8212; <span class="blurb">the underlying mechanics</span></li>
+  </ul>
+</div>
+    </section>
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-row">Epochalypse Project &#8758; public awareness and coordination on 2036&#8211;2038 time-rollover risk.</div>
+  <div class="footer-row footer-links">
+    <a href="/en/">Home</a> &#8758;
+    <a href="/en/faq/">FAQ</a> &#8758;
+    <a href="/en/public-safety/">Public safety</a> &#8758;
+    <a href="/en/evidence/">Evidence</a> &#8758;
+    <a href="/en/how-can-i-help/">How can I help?</a> &#8758;
+    <a href="/en/further-reading/">Further reading</a> &#8758;
+    <a href="https://www.first.org/global/sigs/time/">FIRST Time Security SIG</a> &#8758;
+    <a href="https://github.com/Epochalypse-Project/epochalypse-project.org/issues">Issues</a>
+  </div>
+  <div class="footer-row footer-meta">Last updated: 2026-06-18</div>
+</footer>
+
+</body>
+</html>

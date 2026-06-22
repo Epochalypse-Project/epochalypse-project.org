@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>The Epochalypse Project — Time Integrity &amp; Epoch Rollover Risk (2036/2038)</title>
+  <meta name="description" content="The 2036–2038 epoch rollovers (NTP 2036, 32-bit time_t 2038, GPS 2038): why they matter, who is affected, and what to do.">
+  <link rel="canonical" href="https://epochalypse-project.org/en/">
+  <link rel="alternate" hreflang="en" href="https://epochalypse-project.org/en/">
+  <link rel="alternate" hreflang="x-default" href="https://epochalypse-project.org/en/">
+
+  <meta name="robots" content="index,follow">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="theme-color" content="#1C72AD">
+
+  <meta property="og:site_name" content="Epochalypse Project">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="The Epochalypse Project — Time Integrity &amp; Epoch Rollover Risk (2036/2038)">
+  <meta property="og:description" content="The 2036–2038 epoch rollovers (NTP 2036, 32-bit time_t 2038, GPS 2038): why they matter, who is affected, and what to do.">
+  <meta property="og:url" content="https://epochalypse-project.org/en/">
+  <meta property="og:image" content="https://epochalypse-project.org/assets/images/punk-sloth.png">
+  <meta property="og:locale" content="en_US">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The Epochalypse Project — Time Integrity &amp; Epoch Rollover Risk (2036/2038)">
+  <meta name="twitter:description" content="The 2036–2038 epoch rollovers (NTP 2036, 32-bit time_t 2038, GPS 2038): why they matter, who is affected, and what to do.">
+  <meta name="twitter:image" content="https://epochalypse-project.org/assets/images/punk-sloth.png">
+
+  <link rel="icon" href="/assets/images/punk-sloth.png" type="image/png">
+
+  <link rel="stylesheet" href="/assets/css/proper.css">
+  <link rel="stylesheet" href="/assets/css/epochalypse.css">
+
+  <script type="application/ld+json">
+  { "@context": "https://schema.org", "@type": "WebPage", "name": "The Epochalypse Project — Time Integrity &amp; Epoch Rollover Risk (2036/2038)", "description": "The 2036–2038 epoch rollovers (NTP 2036, 32-bit time_t 2038, GPS 2038): why they matter, who is affected, and what to do.", "url": "https://epochalypse-project.org/en/", "isPartOf": { "@type": "WebSite", "name": "Epochalypse Project", "url": "https://epochalypse-project.org/" } }
+  </script>
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <div class="site-brand">
+      <a href="/en/" class="site-logo-link" aria-label="Epochalypse Project home">
+        <img src="/assets/images/punk-sloth.png" alt="Epochalypse Project logo" class="site-logo">
+      </a>
+      <a href="/en/" class="site-title-link" aria-label="Epochalypse Project home">
+        <div class="site-title-block">
+          <div class="site-title">Epochalypse Project</div>
+          <div class="site-tagline">Time Integrity &amp; Epoch Rollover Risk</div>
+          <div class="site-subtitle">Raising awareness of the 2036&#8211;2038 rollovers &#8212; and fixing things while there's still time.</div>
+        </div>
+      </a>
+    </div>
+    <nav class="site-nav" aria-label="Primary navigation">
+      <div class="site-nav-group">
+        <a href="/en/" aria-current="page">Home</a>
+        <a href="/en/faq/">FAQ</a>
+        <a href="/en/public-safety/">Public safety</a>
+        <a href="/en/evidence/">Evidence</a>
+      </div>
+      <div class="site-nav-group">
+        <a href="/en/how-can-i-help/">How can I help?</a>
+        <a href="/en/further-reading/">Further reading</a>
+        <a href="https://www.first.org/global/sigs/time/">Time SIG</a>
+        <a href="https://github.com/Epochalypse-Project/epochalypse-project.org/issues">Issues</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<div class="page">
+  <main>
+    <section class="section-card">
+<h1 id="the-epochalypse-project">The Epochalypse Project<a class="headerlink" href="#the-epochalypse-project" title="Link to this section">#</a></h1>
+<p class="lede">Time Integrity &amp; Epoch Rollover Risk (2036–2038)</p>
+<p class="cta-row"><a class="btn primary" href="/en/faq/">Read the FAQ &#8594;</a></p>
+
+<p>On 2038-01-19 03:14:07 UTC, the ubiquitous 32-bit signed Unix timestamp (<code>time_t</code>) reaches the end of its range; immediately afterwards, systems that still rely on it may experience incorrect time calculations, mis-ordered events, crashes, or other failures — unless they are remediated or architected to tolerate the rollover.</p>
+<p>Attackers don't need to wait. Weaknesses in time-synchronisation mechanisms and time-dependent logic can be exploited today by inducing or amplifying time anomalies — see <a href="/en/public-safety/">Public safety</a>.</p>
+<p>This is not science fiction. It is a real engineering and cybersecurity risk affecting systems we rely on daily — from industrial automation and telecom infrastructure to embedded devices and long-lived operational technology.</p>
+<h2 id="why-should-you-care">Why should you care?<a class="headerlink" href="#why-should-you-care" title="Link to this section">#</a></h2>
+<p>Time is a shared dependency — the coordination backplane of the digital world. When timestamps become incorrect, or when systems disagree about time, failures can be hard to predict and harder still to diagnose.</p>
+<p>Potential impacts include incorrect scheduling or logging (mis-ordered events, audit gaps); failures in time-based authentication, token validation, or certificate handling; data corruption or replication errors in time-ordered systems; monitoring and alerting that misfires in either direction; and disruptions to industrial processes or safety-critical systems.</p>
+<p>Not every system will fail at the rollover moment, and not every failure will be catastrophic. But the risk is real, widespread, and concentrated where patching and replacement cycles are slow.</p>
+<h2 id="explore-the-site">Explore the site<a class="headerlink" href="#explore-the-site" title="Link to this section">#</a></h2>
+<p>The detail lives on five focused pages:</p>
+<ul class="list">
+<li><a href="/en/faq/">The FAQ</a> — what the problem is, the technical reality, and the vocabulary to describe it.</li>
+<li><a href="/en/public-safety/">Public safety</a> — why this is a safety problem, and how cybersecurity weaknesses make it exploitable today.</li>
+<li><a href="/en/evidence/">Evidence</a> — the documented failures and precedents behind the forecast.</li>
+<li><a href="/en/how-can-i-help/">How can I help?</a> — find your exposure, test safely, mitigate, and plug into the response.</li>
+<li><a href="/en/further-reading/">Further reading</a> — the sources behind the claims on this site.</li>
+</ul>
+<h2 id="what-is-the-32-bit-timestamp-problem">What is the 32-bit timestamp problem?<a class="headerlink" href="#what-is-the-32-bit-timestamp-problem" title="Link to this section">#</a></h2>
+<p>Many systems represent time as a 32-bit signed integer counting seconds since 1970-01-01T00:00:00Z ("Unix time"). When that counter overflows, affected systems may interpret subsequent timestamps as dates in 1901.</p>
+<div class="table-wrap"><table class="table">
+<thead>
+<tr>
+<th></th>
+<th>Timestamp</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Last representable second</td>
+<td>2038-01-19 03:14:07 UTC</td>
+</tr>
+<tr>
+<td>After overflow</td>
+<td>1901-12-13 20:45:52 UTC</td>
+</tr>
+</tbody>
+</table></div>
+<p>This is the Year 2038 problem (Y2038 / Y2K38). It shows up in legacy Linux/Unix environments and older libc and toolchains; in widely used network protocols and common data formats; in embedded and industrial devices using 32-bit time; in long-lived appliances and IoT devices with unclear ownership or update paths; and in databases that store time as 32-bit epoch seconds.</p>
+<p>The core risk pattern: time-representation limits, plus long-lived deployment, plus slow remediation. <a href="/en/faq/">The FAQ explains the mechanics in full.</a></p>
+<h2 id="related-rollover-events">Related rollover events<a class="headerlink" href="#related-rollover-events" title="Link to this section">#</a></h2>
+<p>2038 is not the only time-related rollover in this critical window:</p>
+<div class="table-wrap"><table class="table">
+<thead>
+<tr>
+<th>Event</th>
+<th>Date</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NTP era rollover</td>
+<td>7 February 2036</td>
+</tr>
+<tr>
+<td>32-bit <code>time_t</code> rollover</td>
+<td>19 January 2038</td>
+</tr>
+<tr>
+<td>GPS week-number rollover</td>
+<td>20 November 2038</td>
+</tr>
+</tbody>
+</table></div>
+<p class="note">(The FAQ has a more comprehensive timeline, including the long-tail.)</p>
+<p>These affect different technologies but often intersect in real systems. The common thread: time assumptions that were safe when systems were young become dangerous when systems live for decades.</p>
+<h2 id="why-this-is-hard">Why this is hard<a class="headerlink" href="#why-this-is-hard" title="Link to this section">#</a></h2>
+<p>The challenges compound. Many affected devices are designed to run ten to thirty years. Embedded and OT constraints can make patching difficult, risky, or impossible. Supply-chain opacity means organisations often don't know which components carry time limits. Shared dependencies let time failures cascade across systems that assume consistent timestamps. The incentives are mismatched: remediation costs are local while the benefits are diffuse. And much of the problem lives in the public commons — free and open-source software in particular — where it is unclear who should fund or oversee remediation.</p>
+<p>Even where fixes exist, remediation takes time: talent, inventory, testing, vendor engagement, change windows, operational-risk management. This is a coordination problem as much as a technical one — and the layer to coordinate between the efforts is only now beginning to form.</p>
+<h2 id="what-were-doing">What we're doing<a class="headerlink" href="#what-were-doing" title="Link to this section">#</a></h2>
+<p>The Epochalypse Project is a collaborative effort to improve shared understanding of rollover and time-integrity risk patterns, develop and share safer testing methodologies, document observed device and system behaviour, support responsible vendor engagement and coordinated mitigation, and connect practitioners across sectors and standards bodies.</p>
+<p>Since 2025 that work has taken concrete shape. Members of the project co-edit the ITU-T Study Group 17 Technical Paper on 2038-class rollover risks (XSTP.epoch), and convene the FIRST Time Security SIG, which is increasingly the venue where the relevant standards efforts coordinate. <a href="/en/how-can-i-help/">How can I help?</a> has the detail on who is doing what.</p>
+<p>We aim to be practical: focus on what can be tested, measured, documented, and improved today.</p>
+<h2 id="who-we-are">Who we are<a class="headerlink" href="#who-we-are" title="Link to this section">#</a></h2>
+<p>The project was founded by Trey Darley and Pedro Umbelino, cybersecurity researchers with backgrounds spanning vulnerability research, incident response, and long-lived digital infrastructure.</p>
+<p>This is a volunteer-driven effort to help the community coordinate earlier, test more safely, and reduce surprise as these rollovers approach.</p>
+<h2 id="how-you-can-help">How you can help<a class="headerlink" href="#how-you-can-help" title="Link to this section">#</a></h2>
+<p>You don't need to touch sensitive systems to contribute. If you rely on long-lived devices — routers, NAS units, IoT hubs, appliances — check whether their vendors state 2036/2038 readiness, and report the gaps you find.</p>
+<p>If you operate or build long-lived systems, <a href="/en/how-can-i-help/">How can I help?</a> walks through finding your exposure, testing safely, mitigating what you can't fix in time — and sets out the open questions where research expertise is most needed.</p>
+<p>Whatever your corner, the way in is the <a href="https://www.first.org/global/sigs/time/">FIRST Time Security SIG</a>.</p>
+<h2 id="join-the-effort">Join the effort<a class="headerlink" href="#join-the-effort" title="Link to this section">#</a></h2>
+<p>We're building a shared map of risk patterns, testing methods, and mitigation paths — so fewer organisations discover these problems too late and alone.</p>
+<p>If you can help test safely, document behaviour, or improve guidance, you're welcome here.</p>
+<p><em>Let's reduce catastrophic surprise — together.</em> 🕊️</p>
+<p class="note"><em>Epistemic note: this page reflects current understanding as of the date in the footer. Specific behaviour varies by system, implementation, and deployment context.</em></p>
+    </section>
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-row">Epochalypse Project &#8758; public awareness and coordination on 2036&#8211;2038 time-rollover risk.</div>
+  <div class="footer-row footer-links">
+    <a href="/en/">Home</a> &#8758;
+    <a href="/en/faq/">FAQ</a> &#8758;
+    <a href="/en/public-safety/">Public safety</a> &#8758;
+    <a href="/en/evidence/">Evidence</a> &#8758;
+    <a href="/en/how-can-i-help/">How can I help?</a> &#8758;
+    <a href="/en/further-reading/">Further reading</a> &#8758;
+    <a href="https://www.first.org/global/sigs/time/">FIRST Time Security SIG</a> &#8758;
+    <a href="https://github.com/Epochalypse-Project/epochalypse-project.org/issues">Issues</a>
+  </div>
+  <div class="footer-row footer-meta">Last updated: 2026-06-18</div>
+</footer>
+
+</body>
+</html>

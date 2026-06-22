@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Public safety — The Epochalypse Project</title>
+  <meta name="description" content="Why epoch-rollover risk is a public-safety problem, and how cybersecurity weaknesses let it be triggered before 2038.">
+  <link rel="canonical" href="https://epochalypse-project.org/en/public-safety/">
+  <link rel="alternate" hreflang="en" href="https://epochalypse-project.org/en/public-safety/">
+  <link rel="alternate" hreflang="x-default" href="https://epochalypse-project.org/en/public-safety/">
+
+  <meta name="robots" content="index,follow">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="theme-color" content="#1C72AD">
+
+  <meta property="og:site_name" content="Epochalypse Project">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Public safety — The Epochalypse Project">
+  <meta property="og:description" content="Why epoch-rollover risk is a public-safety problem, and how cybersecurity weaknesses let it be triggered before 2038.">
+  <meta property="og:url" content="https://epochalypse-project.org/en/public-safety/">
+  <meta property="og:image" content="https://epochalypse-project.org/assets/images/punk-sloth.png">
+  <meta property="og:locale" content="en_US">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Public safety — The Epochalypse Project">
+  <meta name="twitter:description" content="Why epoch-rollover risk is a public-safety problem, and how cybersecurity weaknesses let it be triggered before 2038.">
+  <meta name="twitter:image" content="https://epochalypse-project.org/assets/images/punk-sloth.png">
+
+  <link rel="icon" href="/assets/images/punk-sloth.png" type="image/png">
+
+  <link rel="stylesheet" href="/assets/css/proper.css">
+  <link rel="stylesheet" href="/assets/css/epochalypse.css">
+
+  <script type="application/ld+json">
+  { "@context": "https://schema.org", "@type": "WebPage", "name": "Public safety — The Epochalypse Project", "description": "Why epoch-rollover risk is a public-safety problem, and how cybersecurity weaknesses let it be triggered before 2038.", "url": "https://epochalypse-project.org/en/public-safety/", "isPartOf": { "@type": "WebSite", "name": "Epochalypse Project", "url": "https://epochalypse-project.org/" } }
+  </script>
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <div class="site-brand">
+      <a href="/en/" class="site-logo-link" aria-label="Epochalypse Project home">
+        <img src="/assets/images/punk-sloth.png" alt="Epochalypse Project logo" class="site-logo">
+      </a>
+      <a href="/en/" class="site-title-link" aria-label="Epochalypse Project home">
+        <div class="site-title-block">
+          <div class="site-title">Epochalypse Project</div>
+          <div class="site-tagline">Time Integrity &amp; Epoch Rollover Risk</div>
+          <div class="site-subtitle">Raising awareness of the 2036&#8211;2038 rollovers &#8212; and fixing things while there's still time.</div>
+        </div>
+      </a>
+    </div>
+    <nav class="site-nav" aria-label="Primary navigation">
+      <div class="site-nav-group">
+        <a href="/en/">Home</a>
+        <a href="/en/faq/">FAQ</a>
+        <a href="/en/public-safety/" aria-current="page">Public safety</a>
+        <a href="/en/evidence/">Evidence</a>
+      </div>
+      <div class="site-nav-group">
+        <a href="/en/how-can-i-help/">How can I help?</a>
+        <a href="/en/further-reading/">Further reading</a>
+        <a href="https://www.first.org/global/sigs/time/">Time SIG</a>
+        <a href="https://github.com/Epochalypse-Project/epochalypse-project.org/issues">Issues</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<div class="page">
+  <main>
+    <section class="section-card">
+<h1 id="public-safety">Public safety<a class="headerlink" href="#public-safety" title="Link to this section">#</a></h1>
+<p class="lede">Why epoch-rollover risk is a public-safety problem, not only a reliability one — and how cybersecurity weaknesses let it be triggered on demand, today.</p>
+<div class="toc">
+<ul class="list">
+<li><a href="#is-this-a-cybersecurity-issue-or-also-a-public-safety-issue">Is this a cybersecurity issue, or also a public safety issue?</a></li>
+<li><a href="#can-attackers-exploit-this-before-2038">Can attackers exploit this before 2038?</a></li>
+<li><a href="#what-are-the-real-world-impacts">What are the real-world impacts?</a></li>
+</ul>
+</div>
+<div class="lvl-legend">
+<span class="lvl-legend-label">Assessment levels</span>
+<span class="lvl lvl-observed">Observed</span> empirical — directly measured or documented &#183;
+<span class="lvl lvl-reported">Reported</span> field — a credible report, not independently verified here &#183;
+<span class="lvl lvl-suspected">Suspected</span> theoretical — expected on reasoning or precedent, not yet demonstrated &#183;
+<span class="lvl lvl-unexamined">Unexamined</span> evidence gap — no one has looked closely yet
+</div>
+
+<h2 id="is-this-a-cybersecurity-issue-or-also-a-public-safety-issue">Is this a cybersecurity issue, or also a public safety issue?<a class="headerlink" href="#is-this-a-cybersecurity-issue-or-also-a-public-safety-issue" title="Link to this section">#</a></h2>
+<p>It is both, and the two are connected. The reliability framing — "things might break" — undercounts what is actually at stake.</p>
+<p>The cybersecurity dimension is underappreciated. If a system stores time in a bounded representation and accepts time from attacker-influenced sources, 2038-class behaviour can become analogous to a buffer overflow at the semantic layer: not corrupting memory layout, but corrupting temporal reasoning, and inducing undefined behaviour in decision logic. Time is a <a href="/en/faq/#term-temporal-root-of-trust">root of trust</a> — it underpins validity windows, expiry checks, audit trails, replay prevention, and incident reconstruction — so corrupting time corrupts the guarantees built on top of it.</p>
+<p>The public-safety dimension is more direct, and easy to miss. Time also underpins safety-critical functions: leak detection on fuel and chemical storage, monitoring and protection logic in power and water, signalling and onboard systems in transport, timing-dependent therapy and monitoring in medical devices. When time fails, these controls can degrade silently — a leak test that never completes, an alarm that stops firing — with no crash to draw attention to them. And the two dimensions meet: an attacker who can move a device's clock can induce a safety-relevant failure on demand, rather than waiting for 2038. That is why the work triages by how fast the human consequences of a failure arrive, with life-safety systems first.</p>
+<h2 id="can-attackers-exploit-this-before-2038">Can attackers exploit this before 2038?<a class="headerlink" href="#can-attackers-exploit-this-before-2038" title="Link to this section">#</a></h2>
+<p><span class="lvl lvl-observed">Observed</span> Potentially, yes. Time can be influenced today through NTP spoofing or manipulation, GPS/GNSS spoofing, and malformed or adversarial timestamps arriving through dependent systems. This is not hypothetical: a <a href="/en/further-reading/#ref-ntp-clients">public study</a> of the default time clients shipped with the major desktop operating systems found all of them vulnerable to time-shift manipulation, with shifts achieved in minutes to hours and billions of devices running the vulnerable defaults. Full-featured NTP clients fared better, and some clients cap how far the clock can be moved — so the realistic risk is meaningful shifts, not arbitrary jumps to any date.</p>
+<p>This does not mean an attacker can "flip everything to 2038." It means time integrity is a cybersecurity boundary, and weak time synchronisation can turn timekeeping bugs into operational cybersecurity problems.</p>
+<h2 id="what-are-the-real-world-impacts">What are the real-world impacts?<a class="headerlink" href="#what-are-the-real-world-impacts" title="Link to this section">#</a></h2>
+<p><span class="lvl lvl-suspected">Suspected</span> Impacts depend on where the failure occurs, but common classes include authentication failures (Kerberos tickets, domain trusts, tokens); certificate-validation failures (TLS, code signing, expiry checks); the collapse of logging and forensics as time stops being coherent; scheduler and automation failures, where jobs misfire, defer forever, or loop; data corruption as timestamps overflow in databases and pipelines; and cascading failures, where bad timestamps propagate through APIs, logs, and synchronisation.</p>
+<p>The crucial question is <a href="/en/faq/#term-blast-radius">blast radius</a>: does the failure stay local, or cascade through dependencies?</p>
+<div class="related">
+  <p class="related-heading">Explore more</p>
+  <ul class="related-list">
+      <li><a href="/en/evidence/">Evidence</a> &#8212; <span class="blurb">documented failures and precedents</span></li>
+      <li><a href="/en/how-can-i-help/">How can I help?</a> &#8212; <span class="blurb">test safely and mitigate</span></li>
+      <li><a href="/en/faq/">FAQ</a> &#8212; <span class="blurb">the underlying mechanics</span></li>
+  </ul>
+</div>
+    </section>
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-row">Epochalypse Project &#8758; public awareness and coordination on 2036&#8211;2038 time-rollover risk.</div>
+  <div class="footer-row footer-links">
+    <a href="/en/">Home</a> &#8758;
+    <a href="/en/faq/">FAQ</a> &#8758;
+    <a href="/en/public-safety/">Public safety</a> &#8758;
+    <a href="/en/evidence/">Evidence</a> &#8758;
+    <a href="/en/how-can-i-help/">How can I help?</a> &#8758;
+    <a href="/en/further-reading/">Further reading</a> &#8758;
+    <a href="https://www.first.org/global/sigs/time/">FIRST Time Security SIG</a> &#8758;
+    <a href="https://github.com/Epochalypse-Project/epochalypse-project.org/issues">Issues</a>
+  </div>
+  <div class="footer-row footer-meta">Last updated: 2026-06-18</div>
+</footer>
+
+</body>
+</html>

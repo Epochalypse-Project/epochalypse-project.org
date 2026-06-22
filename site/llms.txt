@@ -1,0 +1,18 @@
+# Epochalypse Project
+
+> Public awareness and coordination on the 2036–2038 epoch-rollover risk — the failures that follow when 32-bit and other fixed-width time representations overflow, why they reach across civil infrastructure, and what can be done while there is still time. An independent, plain-language companion to the more specialised standards work (IEEE and ITU-T SG17).
+
+Load-bearing claims are stated with an explicit confidence level, so a reader can tell evidence from inference: **Observed** (directly measured or documented), **Reported** (a credible field report, not independently verified here), **Suspected** (expected on reasoning or precedent, not yet demonstrated), and **Unexamined** (no one has looked closely yet). Every heading, glossary term, and reference carries a stable anchor, so a specific definition or claim can be linked to directly — for example `en/faq/#term-temporal-root-of-trust` or `en/further-reading/#ref-cisa-icsa-25-296-03`.
+
+## Pages
+
+- [Home](https://epochalypse-project.org/en/): What the Year 2038 problem is, why it matters, the related rollover events, and an orientation to the rest of the site.
+- [FAQ](https://epochalypse-project.org/en/faq/): The basics, a glossary of terms (each individually linkable), and the technical reality of fixed-width time overflow.
+- [Public safety](https://epochalypse-project.org/en/public-safety/): How the cybersecurity dimension becomes an exploitation vector, and where time failures reach physical, safety-critical systems.
+- [Evidence](https://epochalypse-project.org/en/evidence/): Documented, public examples of 2038-class failures and advisories, each carrying its assessment level.
+- [How can I help?](https://epochalypse-project.org/en/how-can-i-help/): Reducing your exposure, who is coordinating the response, and where expertise is still needed.
+- [Further reading](https://epochalypse-project.org/en/further-reading/): A curated, citable bibliography — foundations and protocols, recent empirical work, documented incidents, safety-critical standards, and systems-theory framing.
+
+## Optional
+
+- [FIRST Time Security SIG](https://www.first.org/global/sigs/time/): The special-interest group coordinating time-security practice, where much of the underlying community work happens.
