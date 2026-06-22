@@ -66,3 +66,5 @@ translate the prose and copy the IDs verbatim. The build checks ID parity.
 - For anything substantive, open an issue first so we can agree the change.
 - Keep PRs focused; the build must pass (it validates links and anchors).
 - Be kind — see `CODE_OF_CONDUCT.md`.
+
+Last updated: 2026-06-22
